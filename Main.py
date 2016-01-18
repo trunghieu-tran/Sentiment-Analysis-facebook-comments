@@ -42,7 +42,7 @@ def runAnalysis():
     print()
 
 def editedText(event):
-    typedText.configure(text = "Your text:\n" + line.get() + event.char)
+    typedText.configure(text = line.get() + event.char)
 
 def runByEnter(event):
     runAnalysis()
@@ -66,20 +66,22 @@ line.bind("<Key>",editedText)
 line.bind("<Return>",runByEnter)
 line.pack()
 
-typedText = Label(text = "Your text:\n")
+textLabel = Label(text = "\nYour text:", font=("Helvetica", 15))
+textLabel.pack()
+typedText = Label(text = "", fg = "blue", font=("Helvetica", 20))
 typedText.pack()
 
 # analysisButton = Button(main, text = "Analysis", width=10, command = runAnalysis)
 # analysisButton.grid(row=50, column=550)
 # analysisButton.pack()
 
-result = Label(text = "\nResult\n")
+result = Label(text = "\nResult", font=("Helvetica", 15))
 result.pack()
-negativeLabel = Label(text = "")
+negativeLabel = Label(text = "", fg = "red", font=("Helvetica", 20))
 negativeLabel.pack()
-neutralLabel  = Label(text = "")
+neutralLabel  = Label(text = "", font=("Helvetica", 20))
 neutralLabel.pack()
-positiveLabel = Label(text = "")
+positiveLabel = Label(text = "", fg = "green", font=("Helvetica", 20))
 positiveLabel.pack()
 # Run program
 mainloop()
