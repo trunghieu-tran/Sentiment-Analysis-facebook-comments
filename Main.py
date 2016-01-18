@@ -1,5 +1,7 @@
 from tkinter import *
+import tkinter.messagebox
 
+# Main function in program
 def center(toplevel):
     toplevel.update_idletasks()
     w = toplevel.winfo_screenwidth()
@@ -9,32 +11,42 @@ def center(toplevel):
     y = h/2 - size[1]/2
     toplevel.geometry("%dx%d+%d+%d" % (size + (x, y)))
 
+def callback():
+    if tkinter.messagebox.askokcancel("Quit", "Do you really wish to quit?"):
+        main.destroy()
 
+def runAnalysis():
+    typedText.configure(text = "Your text: " + line.get())
+
+# Create main window
 main = Tk()
 main.title("Sentiment Analysis")
 main.geometry("500x300")
 main.resizable(width=FALSE, height=FALSE)
+main.protocol("WM_DELETE_WINDOW", callback)
+main.focus()
 center(main)
 
+# addition item on window
 label1 = Label(text = "Type your review:")
 label1.pack()
 
+def typeKeyReturn(event):
+    runAnalysis()
+
 line = Entry(main, width=70)
+line.bind("<Return>",typeKeyReturn)
+line.bind("<Key>",typeKeyReturn)
 line.pack()
 
-def runAnalysis():
-    print("hello cac ban")
+typedText = Label(text = "Your text :")
+typedText.pack()
 
 analysisButton = Button(main, text = "Analysis", width=10, command = runAnalysis)
 analysisButton.grid(row=50, column=550)
 analysisButton.pack()
 
 
-w = Canvas(main, width=200, height=100)
-w.pack()
 
-# w.create_line(0, 0, 200, 100)
-# w.create_line(0, 100, 200, 0, fill="red", dash=(4, 4))
-# w.create_rectangle(50, 25, 150, 75, fill="blue")
-
+# Run program
 mainloop()
