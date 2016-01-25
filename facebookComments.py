@@ -6,7 +6,7 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 #  here is token which you get from Facebook Graph APIs
 token = "CAACEdEose0cBALGIZASDgIrjQx9LSbv5dP7LNaZCCSHWfK2subPOlveBbpCKBHg5NpSzmKjPWe1WnqPJAysDMyvU6FDTRrgSYdX8Xb1R7A7XDMsgsZAZCOHUZCH2RS3YnuAljK7P3D1UYGHg2jDpvEGWz4XUJQ6ZCeBZAHOHDRKBoz6a8o9KaMXLGcY3R9ljdhrDqHQMwpvLre2vR9nJUOyw49nultxXSMZD"
 graph = facebook.GraphAPI(token)
-post_ids = ['228735667216_10153346097452217', '4692106117913_10201248719057316'] # here is a array of post_ids
+post_ids = ['228735667216_10153347021752217', '4692106117913_10201248719057316'] # here is a array of post_ids
 posts = graph.get_objects(ids=post_ids)
 
 # Function get all coments from id-post
@@ -80,10 +80,10 @@ for post_id in post_ids:
                     arrowprops=dict(arrowstyle='->', connectionstyle='arc3,rad=0.5',
                                     color='blue'))
 
-    plt.annotate("Sentiment anaylysis", xy=(20, 0.69), xycoords="data",
+    plt.annotate("Sentiment analysis", xy=(20, max(max(posY), max(negY))), xycoords="data",
                   va="center", ha="center",
                   bbox=dict(boxstyle="round", fc="w"))
-    plt.annotate("Time(s)", xy=(6000, 0.01), xycoords="data",
+    plt.annotate("Time(s)", xy=(timeX[index], 0.01), xycoords="data",
                   va="center", ha="center",
                   bbox=dict(boxstyle="round", fc="w"))
     show()
