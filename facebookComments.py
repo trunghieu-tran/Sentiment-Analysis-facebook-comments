@@ -6,7 +6,7 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 #  here is token which you get from Facebook Graph APIs
 token = "CAACEdEose0cBALGIZASDgIrjQx9LSbv5dP7LNaZCCSHWfK2subPOlveBbpCKBHg5NpSzmKjPWe1WnqPJAysDMyvU6FDTRrgSYdX8Xb1R7A7XDMsgsZAZCOHUZCH2RS3YnuAljK7P3D1UYGHg2jDpvEGWz4XUJQ6ZCeBZAHOHDRKBoz6a8o9KaMXLGcY3R9ljdhrDqHQMwpvLre2vR9nJUOyw49nultxXSMZD"
 graph = facebook.GraphAPI(token)
-post_ids = ['4692106117913_10201248719057316'] # here is a array of post_ids
+post_ids = ['228735667216_10153346097452217', '4692106117913_10201248719057316'] # here is a array of post_ids
 posts = graph.get_objects(ids=post_ids)
 
 # Function get all coments from id-post
@@ -68,12 +68,13 @@ for post_id in post_ids:
 
     posYannotate = 20 if posY[0] < 0.5 else -20
     negYannotate = 20 if negY[0] < 0.5 else -20
-    plt.annotate('Positive', xy=(timeX[0], posY[0]), xytext=(40,posYannotate),
+    index = len(timeX)- 1
+    plt.annotate('Positive', xy=(timeX[index], posY[index]), xytext=(40,posYannotate),
                     textcoords='offset points', ha='center', va='bottom',
                     bbox=dict(boxstyle='round,pad=0.2', fc='yellow', alpha=0.3),
                     arrowprops=dict(arrowstyle='->', connectionstyle='arc3,rad=0.5',
                                     color='blue'))
-    plt.annotate('Negative', xy=(timeX[0], negY[0]), xytext=(40,negYannotate),
+    plt.annotate('Negative', xy=(timeX[index], negY[index]), xytext=(40,negYannotate),
                     textcoords='offset points', ha='center', va='bottom',
                     bbox=dict(boxstyle='round,pad=0.2', fc='yellow', alpha=0.3),
                     arrowprops=dict(arrowstyle='->', connectionstyle='arc3,rad=0.5',
