@@ -79,4 +79,10 @@ for post_id in post_ids:
                     arrowprops=dict(arrowstyle='->', connectionstyle='arc3,rad=0.5',
                                     color='blue'))
 
+    plt.annotate("Sentiment anaylysis", xy=(20, 0.69), xycoords="data",
+                  va="center", ha="center",
+                  bbox=dict(boxstyle="round", fc="w"))
+    plt.annotate("Time(s)", xy=(6000, 0.01), xycoords="data",
+                  va="center", ha="center",
+                  bbox=dict(boxstyle="round", fc="w"))
     show()
