@@ -1,0 +1,5 @@
+TAS_commentBBCFB.png - Temporal SA of comments in a article of Page BBC news in Facbook
+Here is link: https://www.facebook.com/bbcnews/posts/10153347021752217
+
+Temporal_SA_commentFB.png - tester temporal SA of comment in my own post
+Her is link: https://www.facebook.com/saodem74/posts/10201248719057316?pnref=story
