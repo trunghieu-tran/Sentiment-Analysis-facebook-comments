@@ -8,7 +8,7 @@ Program was written in Python version 3.x, uses Library NLTK.
 
 You can input any sentence, then program will use Library NLTK to analysis your sentence, and then it returns result that is how many percent of positive, negative or neutral.
 
-* 2nd Program - facebookComments.py - project TSAofCFB (temporal sentiment analysis of comments Facebook)
+* 2nd Program - facebookComments.py - project TSAofCFB (temporal sentiment analysis of Facebook comments)
 
 You have to learn about Facebook Graph API and how it works. So, then paste your token and id of post in file "facebookComments.py", which you want to analysis sentiment of comments. Program will show you temporal sentiment analysis of comments.
 
