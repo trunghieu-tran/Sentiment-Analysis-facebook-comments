@@ -3,14 +3,17 @@ import dateutil.parser as dateparser
 from pylab import *
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
+
+
+
 #  here is token which you get from Facebook Graph APIs, every time using program, you need update this token
-token = "CAACEdEose0cBAEiZBMdTbfGvCpBSN6OwETqfe93soMccs2UyZCyDP3z55fH0jsaFJOKV7ddntzQMgnbDeD3drNZAlBZCvdP3S1xmh0HzrfaGUsQzo4oPG3NxZBASiBZAF70tcQpEFPBDi4GAmTpBoLIgJidtjzcq2F8vVIZBaJewL9qWgPa32gojvErp6iZA6AlI5gqvuVKtftcxZCXUz0uF5DqVZBgRvMjhQZD"
+token = "CAACEdEose0cBAKzxttxs5WZByysin2uU1UILZBnxAzVgHZBVTEjGGNWQQR60ZCrgicUAZBD7JQ2YZBA4qKqJ4t1xfzPw2ICZBdeB5DjfyccQDaFHj6dhp0UvIfyCfWimiZAaa7gyJI6qVuwkovhhuyvOoNJbwsBAJD0ptyO8AzDo4gVjIQaACpdnvAA9nYQPt1nZBDaaKCmVCbVvGX3I99ljodkhZB6ZCSyeCcZD"
 graph = facebook.GraphAPI(token)
 # here is a array of post_ids
 # The 1st ID is BBC, the 2nd ID is CNN
 post_ids = [
-            '1143803202301544_10153348871732217',
-            '5550296508_10154411968366509'
+            '1143803202301544_10153361940712217',
+            # '5550296508_10154411968366509'
            ]
 post_titles = [
                 'TSAofCFB on BBC for article: Obama bans solitary confinement for juveniles',
@@ -22,7 +25,7 @@ posts = graph.get_objects(ids=post_ids)
 def getComments(id_post):
     sentencesComments = []
     timeComments = []
-    comments = graph.get_connections(id=id_post, connection_name='comments', limit = 200 )
+    comments = graph.get_connections(id=id_post, connection_name='comments', limit = 1000    )
     cnt = 0
     for comment in comments['data']:
         try:
@@ -77,7 +80,7 @@ for post_id in post_ids:
     # Convert sentiment analysis data
     posY, negY = sentimentAnalysis(sentencesComments)
 
-    # plt.scatter(timeX, posY) - it will show exactly points if you need
+    # plt.scatter(timeX, posY) #  it will show exactly points if you need
     # plt.scatter(timeX, negY)
 
     fi[cnt] = plt.figure()
