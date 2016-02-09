@@ -13,9 +13,9 @@ graph = facebook.GraphAPI(token)
 # BBC : 1143803202301544
 # my  : 4692106117913
 post_ids = [
-            '5550296508_10154448359766509'
+            '5550296508_10154445414096509'
            ]
-currPost = "Why these Obama voters are backing Donald Trump"
+currPost = "Bush on Trump: 'The guy needs therapy'"
 posts = graph.get_objects(ids=post_ids)
 ############
 xx = []
@@ -180,8 +180,8 @@ def write_data_to_CSV_file():
     topic = "United States presidential election 2016"
     # option 'w' - create a new file
     # option 'a' - append rows to the old file
-    with open('comment_data.csv', 'a', newline='\n') as csv_file:
-        writer = csv.writer(csv_file, delimiter=',')
+    with open('comment_data.csv', 'a') as csv_file:
+        writer = csv.writer(csv_file, lineterminator='\n', delimiter=',')
         # Header
         # writer.writerow(['DateTime(seconds)', 'Topic', 'Post', 'Comment', 'Positive', 'Negative'])
         created_time_post = dateparser.parse(posts[post_ids[0]]['created_time'])
