@@ -4,15 +4,14 @@ from pylab import *
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 
-
-
 #  here is token which you get from Facebook Graph APIs, every time using program, you need update this token
-token = "CAACEdEose0cBAKzxttxs5WZByysin2uU1UILZBnxAzVgHZBVTEjGGNWQQR60ZCrgicUAZBD7JQ2YZBA4qKqJ4t1xfzPw2ICZBdeB5DjfyccQDaFHj6dhp0UvIfyCfWimiZAaa7gyJI6qVuwkovhhuyvOoNJbwsBAJD0ptyO8AzDo4gVjIQaACpdnvAA9nYQPt1nZBDaaKCmVCbVvGX3I99ljodkhZB6ZCSyeCcZD"
+token = "CAACEdEose0cBAAFjBydnbq2X405Al0bZCWW1cV9yFjZAMh9yYs7m3Jz4EiiZCVL0X8O9XLLsOhHLjCupxGARTniLlb0GBzFs9rT2maWo4pZBZBZAXhohZCzMI7XiaXghfrcRE7M5h0GUngTDLQXjw2hQMQ2Qz4mkZC3yEIr0krOpUGZBJKUg8OeUuggz0GkpZCzkcgGdLqheZBQBcelOdOfOGVujYNovGixBS0ZD"
 graph = facebook.GraphAPI(token)
 # here is a array of post_ids
 # The 1st ID is BBC, the 2nd ID is CNN
 post_ids = [
-            '1143803202301544_10153361940712217',
+            '526077330801741_957234144352722'
+            # '1143803202301544_10153361940712217',
             # '5550296508_10154411968366509'
            ]
 post_titles = [
@@ -106,12 +105,6 @@ for post_id in post_ids:
                     arrowprops=dict(arrowstyle='->', connectionstyle='arc3,rad=0.5',
                                     color='blue'))
 
-    # plt.annotate("Sentiment analysis", xy=(20, max(max(posY), max(negY))), xycoords="data",
-    #               va="center", ha="center",
-    #               bbox=dict(boxstyle="round", fc="w"))
-    # plt.annotate("Time(s)", xy=(timeX[index], 0.01), xycoords="data",
-    #               va="center", ha="center",
-    #               bbox=dict(boxstyle="round", fc="w"))
     plt.xlabel('Time(s)')
     plt.ylabel('Sentiment analysis')
     fi[cnt].suptitle(post_titles[cnt])

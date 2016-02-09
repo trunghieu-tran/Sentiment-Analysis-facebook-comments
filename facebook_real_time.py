@@ -6,17 +6,21 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 ##### Connections to Facebook by Graph API
 #  here is token which you get from Facebook Graph APIs, every time using program, you need update this token
-token = "CAACEdEose0cBABFd3Ok4haV6TxnZAEw9ZA6ONXhzZCroRSmXwUxOv0gIZBnATYjJ8VYvn80vKGEJXWPTpchkWOjao0wbH6jm7vGWlWO14UL7iT8orrBiAuE8ZAXLQ9NUS62VB1AxDnl1kRR9nNi7fUJmoT8A4NGDNKBaK9DKHRaIXec5szgwYS43O6FJAudOPLtvUXkM533AHlgUZARfAJjAaNZCZApVDDMZD"
+token = "CAACEdEose0cBAKcL0tvvQSZAzVnWimZALaZBro8FqcB0wRY1sR1efJ86do6VyHhk7ItF6FSr4TXVfEXacUMdl8y5KVvdem06SDdwU0DZCSokPUz2iF1hsUvvDnAHs5tZC2jKE6EZCeX8raUDuMzQEtELM9ZCnFAxN8UN702SC8hK3hZCBg4HZCNA052eo41p7ymZAdTuFl3JXZCU88xsgOLZATefOLYA7ZCkZC1psZD"
 graph = facebook.GraphAPI(token)
 # here is a array of post_ids
+# CNN : 5550296508
+# BBC : 1143803202301544
+# my  : 4692106117913
 post_ids = [
-            # '4692106117913_10201273783483911'# day la my post
-            # '1143803202301544_10153362704337217'
-            # '5550296508_10154411968366509'
-            '1143803202301544_10153362825832217'
+            '5550296508_10154448359766509'
            ]
+currPost = "Why these Obama voters are backing Donald Trump"
 posts = graph.get_objects(ids=post_ids)
 ############
+xx = []
+yyPos = []
+yyNeg = []
 
 # Function get all coments from id-post
 def getComments(id_post):
@@ -110,49 +114,82 @@ class drawgraph(Observer):
         plt.show()
         # plt.pause(0.001) #Note this correction
 
-# create observation
-dr = drawgraph()
-dr.observe('draw a new point',  dr.new_point)
-# create graph real-time
-plt.ion()
-fig=plt.figure()
-# listen keyboard to exit
-fig.canvas.mpl_connect('key_press_event', press)
 
-#### Draw graph for data which have existed
-# Get created time of post
-created_time_post = dateparser.parse(posts[post_ids[0]]['created_time'])
-print('Created Time of Post = {0}'.format(created_time_post))
-# Get comment of post
-sentencesComments, timeComments = getComments(post_ids[0])
-# Convert time data
-timeX = timeToX(timeComments, created_time_post)
-# Convert sentiment analysis data
-posY, negY = sentimentAnalysis(sentencesComments)
-xx = []
-yyPos = []
-yyNeg = []
-for i in range(len(posY) - 1):
-    Event('draw a new point', timeX[i], posY[i], negY[i])
 
-plt.plot(xx, yyPos, color = 'g')
-plt.plot(xx, yyNeg, color = 'r')
-drawAnnotate()
-plt.show()
-#############
-############# Real-time graph ####
-# Real-time
-while stop == False:
-    sentencesCommentsCurr, timeCommentsCurr = getComments(post_ids[0])
-    if satisfyConditions(timeCommentsCurr, timeComments):
-        timeXCurr = timeToX(timeCommentsCurr, created_time_post)
-        posYCurr, negYCurr = sentimentAnalysis(sentencesCommentsCurr)
-        for i in range(len(sentencesComments), len(sentencesCommentsCurr)):
-             Event('draw a new point', timeXCurr[i], posYCurr[i], negYCurr[i])
-        print("updated {0} comments".format(len(sentencesCommentsCurr) - len(sentencesComments)))
-        sentencesComments = sentencesCommentsCurr
-        timeComments = timeCommentsCurr
-        timeX = timeXCurr
-    plt.pause(0.1)
+def main_real_time_analysis():
+    # create observation
+    dr = drawgraph()
+    dr.observe('draw a new point',  dr.new_point)
+    # create graph real-time
+    plt.ion()
+    fig=plt.figure()
+    # listen keyboard to exit
+    fig.canvas.mpl_connect('key_press_event', press)
 
-print("Done")
+    #### Draw graph for data which have existed
+    # Get created time of post
+    created_time_post = dateparser.parse(posts[post_ids[0]]['created_time'])
+    print('Created Time of Post = {0}'.format(created_time_post))
+    # Get comment of post
+    sentencesComments, timeComments = getComments(post_ids[0])
+    # Convert time data
+    timeX = timeToX(timeComments, created_time_post)
+    # Convert sentiment analysis data
+    posY, negY = sentimentAnalysis(sentencesComments)
+    for i in range(len(posY) - 1):
+        Event('draw a new point', timeX[i], posY[i], negY[i])
+    plt.plot(xx, yyPos, color = 'g')
+    plt.plot(xx, yyNeg, color = 'r')
+    drawAnnotate()
+    plt.show()
+    #############
+    ############# Real-time graph ####
+    # Real-time
+    while stop == False:
+        sentencesCommentsCurr, timeCommentsCurr = getComments(post_ids[0])
+        if satisfyConditions(timeCommentsCurr, timeComments):
+            timeXCurr = timeToX(timeCommentsCurr, created_time_post)
+            posYCurr, negYCurr = sentimentAnalysis(sentencesCommentsCurr)
+            for i in range(len(sentencesComments), len(sentencesCommentsCurr)):
+                Event('draw a new point', timeXCurr[i], posYCurr[i], negYCurr[i])
+            print("updated {0} comments".format(len(sentencesCommentsCurr) - len(sentencesComments)))
+            sentencesComments = sentencesCommentsCurr
+            timeComments = timeCommentsCurr
+            timeX = timeXCurr
+        plt.pause(0.1)
+
+    print("Done")
+
+def isEnglishLanguage(str):
+    for char in str:
+        i = ord(char)
+        if i < 0 or i > 255:
+            return False
+    return True
+
+def isValid(str):
+    res = not ("http://" in str)
+    res = res and  not("https://" in str)
+    return res
+
+def isInTimeLimit(t):
+    return t < 30000
+
+def write_data_to_CSV_file():
+    import csv
+    topic = "United States presidential election 2016"
+    # option 'w' - create a new file
+    # option 'a' - append rows to the old file
+    with open('comment_data.csv', 'a', newline='\n') as csv_file:
+        writer = csv.writer(csv_file, delimiter=',')
+        # Header
+        # writer.writerow(['DateTime(seconds)', 'Topic', 'Post', 'Comment', 'Positive', 'Negative'])
+        created_time_post = dateparser.parse(posts[post_ids[0]]['created_time'])
+        sentencesComments, timeComments = getComments(post_ids[0])
+        timeX = timeToX(timeComments, created_time_post)
+        posY, negY = sentimentAnalysis(sentencesComments)
+        for i in range(len(timeX)):
+            if isEnglishLanguage(sentencesComments[i]) and isValid(sentencesComments[i]) and isInTimeLimit(timeX[i]):
+                writer.writerow([timeX[i], topic, currPost, sentencesComments[i], posY[i], negY[i]])
+# main_real_time_analysis()
+write_data_to_CSV_file()
