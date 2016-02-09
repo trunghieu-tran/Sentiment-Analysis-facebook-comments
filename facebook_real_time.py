@@ -6,16 +6,17 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 ##### Connections to Facebook by Graph API
 #  here is token which you get from Facebook Graph APIs, every time using program, you need update this token
-token = "CAACEdEose0cBAKcL0tvvQSZAzVnWimZALaZBro8FqcB0wRY1sR1efJ86do6VyHhk7ItF6FSr4TXVfEXacUMdl8y5KVvdem06SDdwU0DZCSokPUz2iF1hsUvvDnAHs5tZC2jKE6EZCeX8raUDuMzQEtELM9ZCnFAxN8UN702SC8hK3hZCBg4HZCNA052eo41p7ymZAdTuFl3JXZCU88xsgOLZATefOLYA7ZCkZC1psZD"
+token = "CAACEdEose0cBADF2zGgZCuui5SbZABCTao8EFdU0argrNuffuPIvpIYIVCOKuMGdJbcEV0qaOpjsXsPbyrIuERL5YmhvLqASRaNqjkXSxxffw3XmnlU5BGOamSvWkifniNxjfFAo190rIhfFZCCNIG1TRhhv25ZCeYhYMxRmp5GtgRA8pEq4EVKZAAF7akfDGeRCJnhCHUZA7iB2vdbJbepdCGrL9BavoZD"
 graph = facebook.GraphAPI(token)
 # here is a array of post_ids
 # CNN : 5550296508
 # BBC : 1143803202301544
 # my  : 4692106117913
+# CNNpolitics : 219367258105115
 post_ids = [
-            '5550296508_10154445414096509'
+            '5550296508_10154440551421509'
            ]
-currPost = "Bush on Trump: 'The guy needs therapy'"
+currPost = "National poll: Sanders and Clinton neck-and-neck"
 posts = graph.get_objects(ids=post_ids)
 ############
 xx = []
