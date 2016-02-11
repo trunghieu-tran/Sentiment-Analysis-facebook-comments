@@ -13,13 +13,16 @@ You can input any sentence, then program will use Library NLTK to analysis your 
 * 2nd Program - facebookComments.py - project TSAofCFB (temporal sentiment analysis of Facebook comments)
 
 This is a part which will show you a Dashboard, which describes temporal sentiment analysis of comments on a post on Facebook. Data is got once, and then it will be analyzed in a processing.
+You have to learn about Facebook Graph API and how it works. So, then paste your token and id of post in file "facebookComments.py", which you want to analysis sentiment of comments. Program will show you temporal sentiment analysis of comments.
 
 * 3rd Program - facebook_real_time.py - project SART (Sentiment Analysis Real-time)
 
 Our Real-time stream processing automates getting data from Facebook server continually and then, we process data in small time period – near real time. For every processing, we use NLTK Library to analysis sentiment data. The results of data processing will be checked by predefined user’s conditions. If it satisfies conditions, the program will create an event to update Dashboard’s status. Beside, the program includes a procedure, which implements listening to any event. If a certain events exists, Dashboard will be updated.
 
+* Data Folder
 
-You have to learn about Facebook Graph API and how it works. So, then paste your token and id of post in file "facebookComments.py", which you want to analysis sentiment of comments. Program will show you temporal sentiment analysis of comments.
+This part include data of comments. It's useful to implement batch data processing. The topic was chosen is “United States presidential election 2016”, which is popular recently. Almost data will be received from two famous new channels : BBC news and CNN on Facebook. We collected 25 posts about the topic above. Each of post, using Facebook Graph API, we get all comments of the first 30000 seconds, and save to .csv file. Amount of comments approximates 10000 comments.
+
 
 ### What is Sentiment Analysis? ###
 
