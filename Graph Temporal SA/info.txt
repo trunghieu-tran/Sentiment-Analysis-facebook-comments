@@ -5,3 +5,6 @@ Temporal_SA_commentFB.png - tester temporal SA of comment in my own post
 Her is link: https://www.facebook.com/saodem74/posts/10201248719057316
 
 BBC vs CNN.png - TSAofCFB on BBC and CNN comparision
+
+Sumary unique value in exel:
+=SUMPRODUCT(1/COUNTIF(C2:C10760,C2:C10760))
