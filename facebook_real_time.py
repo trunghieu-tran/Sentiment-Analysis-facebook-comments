@@ -6,7 +6,7 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 ##### Connections to Facebook by Graph API
 #  here is token which you get from Facebook Graph APIs, every time using program, you need update this token
-token = "CAACEdEose0cBADF2zGgZCuui5SbZABCTao8EFdU0argrNuffuPIvpIYIVCOKuMGdJbcEV0qaOpjsXsPbyrIuERL5YmhvLqASRaNqjkXSxxffw3XmnlU5BGOamSvWkifniNxjfFAo190rIhfFZCCNIG1TRhhv25ZCeYhYMxRmp5GtgRA8pEq4EVKZAAF7akfDGeRCJnhCHUZA7iB2vdbJbepdCGrL9BavoZD"
+token = "CAACEdEose0cBALUEDgnZAmcJPdeVuJFfuah5atvisexHnd9eNEeY2vrqLD2gOZCL947p6AdfVUYuWJ2SUl92a57kF57atouwENILbqJRFesNZCjytWSQIPhEo2XvAttpzmvFdjglaUpQFCKcHdsXZAujHnsGvcYZCIsWHRSL4ipmFPkQKCmNYHgbHsPTDPEKZCilvxy2qlyZCkndAZCfgmBPDhmIyPtV7dwZD"
 graph = facebook.GraphAPI(token)
 # here is a array of post_ids
 # CNN : 5550296508
@@ -14,7 +14,7 @@ graph = facebook.GraphAPI(token)
 # my  : 4692106117913
 # CNNpolitics : 219367258105115
 post_ids = [
-            '5550296508_10154440551421509'
+            '1143803202301544_10153388347607217'
            ]
 currPost = "National poll: Sanders and Clinton neck-and-neck"
 posts = graph.get_objects(ids=post_ids)
@@ -192,5 +192,7 @@ def write_data_to_CSV_file():
         for i in range(len(timeX)):
             if isEnglishLanguage(sentencesComments[i]) and isValid(sentencesComments[i]) and isInTimeLimit(timeX[i]):
                 writer.writerow([timeX[i], topic, currPost, sentencesComments[i], posY[i], negY[i]])
+
+
 # main_real_time_analysis()
-write_data_to_CSV_file()
+# write_data_to_CSV_file()
