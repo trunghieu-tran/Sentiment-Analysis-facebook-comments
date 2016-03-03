@@ -29,25 +29,38 @@ def drawGraph(last):
     yPos.clear()
     yNeg.clear()
 
-def read_data_from_CSV_file():
-    with open('Data/comment_data.csv','r',encoding='utf-8', errors='ignore') as csv_file:
+def read_data_from_CSV_file(link):
+    with open(link,'r',encoding='utf-8', errors='ignore') as csv_file:
         reader = csv.reader(csv_file, lineterminator='', delimiter=',')
         last = 'Post'
+        sumPos = 0
+        sumNeg = 0
+        cnt = 0
         for row in reader:
-            if row[2] != last:
-                if last != 'Post':
-                    create_vector_to_cluster(20, last)
-                    drawGraph(last)
-                last = row[2]
-                xx.clear()
-                xx.append(row[0])
-                yPos.append(row[4])
-                yNeg.append(row[5])
-            else:
-                if last != 'Post':
+            try:
+                if row[2] != last:
+                    if last != 'Post':
+                        # create_vector_to_cluster(20, last)
+                        drawGraph(last)
+                    last = row[2]
+                    xx.clear()
                     xx.append(row[0])
-                    yPos.append(row[4])
-                    yNeg.append(row[5])
+                    cnt = 1
+                    sumPos = float(row[4])
+                    sumNeg = float(row[5])
+                    yPos.append(sumPos/cnt)
+                    yNeg.append(sumNeg/cnt)
+                else:
+                    if last != 'Post':
+                        cnt += 1
+                        sumPos += float(row[4])
+                        sumNeg += float(row[5])
+                        xx.append(row[0])
+                        yPos.append(sumPos/cnt)
+                        yNeg.append(sumNeg/cnt)
+            except:
+                print(row)
+                exit()
 
     drawAnnotate()
     show()
@@ -72,21 +85,22 @@ def create_vector_to_cluster(cnt_period, topic):
     myvector.append(topic)
     for x in xx:
         if (int(x) <= vlast):
-            xtemp.append(yNeg[pos_])
+            # xtemp.append(yNeg[pos_])
+            xtemp.append(yPos[pos_])
         else:
             averageX = getAverage(xtemp)
             myvector.append(convert_float(averageX))
-            # print(convert_float(averageX), ' ', len(xtemp))
             xtemp.clear()
-            xtemp.append(yNeg[pos_])
+            # xtemp.append(yNeg[pos_])
+            xtemp.append(yPos[pos_])
             vlast += dist
             cc += 1
         pos_ += 1
-    for ii in range(cc + 1, cnt_period):
+    for ii in range(cc + 1, cnt_period + 1):
         myvector.append(myvector[len(myvector) - 1 ])
 
     import  csv
-    with open('Data/vector_clustering_negative.csv', 'a') as csv_file:
+    with open('Data/vector_clustering_positive_2.csv', 'a') as csv_file:
         writer = csv.writer(csv_file, lineterminator='\n', delimiter=',')
         writer.writerow(myvector)
     print(cc)
@@ -111,5 +125,5 @@ def read_data_vector_from_CSV_file(link):
             # print(yPos)
     drawAnnotate()
     show()
-# read_data_from_CSV_file()
-read_data_vector_from_CSV_file('Data/vector_clustering_positive.csv')
+read_data_from_CSV_file('Data/comment_data_BigData_200post.csv')
+# read_data_vector_from_CSV_file('Data/vector_clustering_positive.csv')

@@ -6,17 +6,18 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 ##### Connections to Facebook by Graph API
 #  here is token which you get from Facebook Graph APIs, every time using program, you need update this token
-token = "CAACEdEose0cBALUEDgnZAmcJPdeVuJFfuah5atvisexHnd9eNEeY2vrqLD2gOZCL947p6AdfVUYuWJ2SUl92a57kF57atouwENILbqJRFesNZCjytWSQIPhEo2XvAttpzmvFdjglaUpQFCKcHdsXZAujHnsGvcYZCIsWHRSL4ipmFPkQKCmNYHgbHsPTDPEKZCilvxy2qlyZCkndAZCfgmBPDhmIyPtV7dwZD"
+token = "CAACEdEose0cBALGTAOQda5RVHlWCcI1HB9ZClxtDVQZCKPd8ztA3zmtziRNE9eoxbnEvTvIol7JbdDLD4kjetx4ZAHzAqBefZC4zpF6uM7UjdCGRIW7k6ks0lZCwA2uqZAetyhJM4oYzLSpmdxExIEmTymVEkP28PXqt2TKoNOoO56oS9ccxdqLdZAB8TjQfR4owjNfE8GAcwZDZD"
 graph = facebook.GraphAPI(token)
 # here is a array of post_ids
 # CNN : 5550296508
 # BBC : 1143803202301544
+# BBC new : 228735667216
 # my  : 4692106117913
 # CNNpolitics : 219367258105115
 post_ids = [
-            '1143803202301544_10153388347607217'
+            '1143803202301544_10153410081322217'
            ]
-currPost = "National poll: Sanders and Clinton neck-and-neck"
+currPost = "Christie endorses Trump in shock move"
 posts = graph.get_objects(ids=post_ids)
 ############
 xx = []
@@ -54,10 +55,12 @@ def sentimentAnalysis(sentencesComments):
         for type in sorted(ss):
             if (type == "neg"):
                 sumNeg += ss[type]
-                negY.append(sumNeg / cnt)
+                # negY.append(sumNeg / cnt)
+                negY.append(ss[type])
             if (type == "pos"):
                 sumPos += ss[type]
-                posY.append(sumPos / cnt)
+                # posY.append(sumPos / cnt)
+                posY.append(ss[type])
     return posY, negY
 
 # Convert time comment to coordinate X in Graph
@@ -118,6 +121,7 @@ class drawgraph(Observer):
 
 
 def main_real_time_analysis():
+    global posts
     # create observation
     dr = drawgraph()
     dr.observe('draw a new point',  dr.new_point)
@@ -179,11 +183,14 @@ def isInTimeLimit(t):
 def write_data_to_CSV_file():
     import csv
     topic = "United States presidential election 2016"
+    global posts
+    posts = graph.get_objects(ids=post_ids)
     # option 'w' - create a new file
     # option 'a' - append rows to the old file
-    with open('comment_data.csv', 'a') as csv_file:
+    with open('Data/comment_data_2.csv', 'a') as csv_file:
         writer = csv.writer(csv_file, lineterminator='\n', delimiter=',')
-        # Header
+
+        # Header - anable in the first time when you write into the file
         # writer.writerow(['DateTime(seconds)', 'Topic', 'Post', 'Comment', 'Positive', 'Negative'])
         created_time_post = dateparser.parse(posts[post_ids[0]]['created_time'])
         sentencesComments, timeComments = getComments(post_ids[0])
@@ -194,5 +201,21 @@ def write_data_to_CSV_file():
                 writer.writerow([timeX[i], topic, currPost, sentencesComments[i], posY[i], negY[i]])
 
 
+def from_link_to_get_comment(link):
+    import csv
+    global  currPost
+    global  post_ids
+    with open(link, 'r',encoding='utf-8', errors='ignore') as csv_file:
+        reader = csv.reader(csv_file, lineterminator='', delimiter=',')
+        cnt = 0
+        for row in reader:
+            cnt += 1
+            print(cnt,  ' ', row)
+            post_ids[0] = str(row[1])
+            currPost = row[0]
+            write_data_to_CSV_file()
+
+
+from_link_to_get_comment('Data/LinkPost.csv')
 # main_real_time_analysis()
 # write_data_to_CSV_file()
