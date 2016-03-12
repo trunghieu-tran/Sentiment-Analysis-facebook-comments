@@ -6,7 +6,7 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 ##### Connections to Facebook by Graph API
 #  here is token which you get from Facebook Graph APIs, every time using program, you need update this token
-token = "CAACEdEose0cBALGTAOQda5RVHlWCcI1HB9ZClxtDVQZCKPd8ztA3zmtziRNE9eoxbnEvTvIol7JbdDLD4kjetx4ZAHzAqBefZC4zpF6uM7UjdCGRIW7k6ks0lZCwA2uqZAetyhJM4oYzLSpmdxExIEmTymVEkP28PXqt2TKoNOoO56oS9ccxdqLdZAB8TjQfR4owjNfE8GAcwZDZD"
+token = "CAACEdEose0cBAAh5l3LIc9cZACfD27tWl1z2mx5EDaYUPb24VcOEObFWu3wzG9QZC7ncg3Vmd06P1KK2H4l1p7vlnlMIlg4xZAVpFZCMHVgq22y8TzYGS30hiaFKg5VPcBg5LyHy3tupTyl09peyZCeja8dcCBw9gfmFA8hoIPZAhTk6yN5k0IXnOW3ZCwor9MLDmvQDoxABAZDZD"
 graph = facebook.GraphAPI(token)
 # here is a array of post_ids
 # CNN : 5550296508
@@ -15,7 +15,7 @@ graph = facebook.GraphAPI(token)
 # my  : 4692106117913
 # CNNpolitics : 219367258105115
 post_ids = [
-            '1143803202301544_10153410081322217'
+            '228735667216_10153440548847217'
            ]
 currPost = "Christie endorses Trump in shock move"
 posts = graph.get_objects(ids=post_ids)
@@ -216,6 +216,6 @@ def from_link_to_get_comment(link):
             write_data_to_CSV_file()
 
 
-from_link_to_get_comment('Data/LinkPost.csv')
-# main_real_time_analysis()
+# from_link_to_get_comment('Data/LinkPost.csv')
+main_real_time_analysis()
 # write_data_to_CSV_file()
