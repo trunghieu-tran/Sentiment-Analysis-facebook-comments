@@ -1,10 +1,6 @@
 from tkinter import *
 import tkinter.messagebox
 
-from nltk.classify import NaiveBayesClassifier
-from nltk.corpus import subjectivity
-from nltk.sentiment import SentimentAnalyzer
-from nltk.sentiment.util import *
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 # Main function in program
@@ -23,11 +19,11 @@ def callback():
 
 def setResult(type, res):
     if (type == "neg"):
-        negativeLabel.configure(text = "Negative : " + str(res) + " % \n")
+        negativeLabel.configure(text = "Отрицательно : " + str(res) + " % \n")
     if (type == "neu"):
-        neutralLabel.configure( text = "Neutral  : " + str(res) + " % \n")
+        neutralLabel.configure( text = "Нейтрально  : " + str(res) + " % \n")
     if (type == "pos"):
-        positiveLabel.configure(text = "Positive : " + str(res) + " % \n")
+        positiveLabel.configure(text = "Положительно : " + str(res) + " % \n")
 
 def runAnalysis():
     sentences = []
@@ -49,7 +45,7 @@ def runByEnter(event):
 
 # Create main window
 main = Tk()
-main.title("Sentiment Analysis")
+main.title("Анализ тональности")
 main.geometry("500x300")
 main.resizable(width=FALSE, height=FALSE)
 main.protocol("WM_DELETE_WINDOW", callback)
@@ -57,7 +53,7 @@ main.focus()
 center(main)
 
 # addition item on window
-label1 = Label(text = "Type your review:")
+label1 = Label(text = "Ввод текста:")
 label1.pack()
 
 
@@ -66,7 +62,7 @@ line.bind("<Key>",editedText)
 line.bind("<Return>",runByEnter)
 line.pack()
 
-textLabel = Label(text = "\nYour text:", font=("Helvetica", 15))
+textLabel = Label(text = "\nВведенные тексты:", font=("Helvetica", 15))
 textLabel.pack()
 typedText = Label(text = "", fg = "blue", font=("Helvetica", 20))
 typedText.pack()
@@ -75,7 +71,7 @@ typedText.pack()
 # analysisButton.grid(row=50, column=550)
 # analysisButton.pack()
 
-result = Label(text = "\nResult", font=("Helvetica", 15))
+result = Label(text = "\nРезультаты", font=("Helvetica", 15))
 result.pack()
 negativeLabel = Label(text = "", fg = "red", font=("Helvetica", 20))
 negativeLabel.pack()
