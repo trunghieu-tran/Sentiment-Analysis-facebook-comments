@@ -19,11 +19,11 @@ def callback():
 
 def setResult(type, res):
     if (type == "neg"):
-        negativeLabel.configure(text = "Отрицательно : " + str(res) + " % \n")
+        negativeLabel.configure(text = "Отрицательно : " + '%.2f' % res + "  \n")
     if (type == "neu"):
-        neutralLabel.configure( text = "Нейтрально  : " + str(res) + " % \n")
+        neutralLabel.configure( text = "Нейтрально  : " + '%.2f' % res + "  \n")
     if (type == "pos"):
-        positiveLabel.configure(text = "Положительно : " + str(res) + " % \n")
+        positiveLabel.configure(text = "Положительно : " + '%.2f' % res + "  \n")
 
 def runAnalysis():
     sentences = []
@@ -34,13 +34,13 @@ def runAnalysis():
         ss = sid.polarity_scores(sentence)
         for k in sorted(ss):
             setResult(k, ss[k])
-                # print('{0}: {1} \n'.format(k, ss[k]), end='')
-    print()
 
-def editedText(event):
-    typedText.configure(text = line.get() + event.char)
+# def editedText(event):
+    # print(event.char)
+    # typedText.configure(text = line.get() + event.char)
 
 def runByEnter(event):
+    typedText.configure(text = line.get())
     runAnalysis()
 
 # Create main window
@@ -58,7 +58,7 @@ label1.pack()
 
 
 line = Entry(main, width=70)
-line.bind("<Key>",editedText)
+# line.bind("<Key>",editedText)
 line.bind("<Return>",runByEnter)
 line.pack()
 
@@ -66,10 +66,6 @@ textLabel = Label(text = "\nВведенные тексты:", font=("Helvetica"
 textLabel.pack()
 typedText = Label(text = "", fg = "blue", font=("Helvetica", 20))
 typedText.pack()
-
-# analysisButton = Button(main, text = "Analysis", width=10, command = runAnalysis)
-# analysisButton.grid(row=50, column=550)
-# analysisButton.pack()
 
 result = Label(text = "\nРезультаты", font=("Helvetica", 15))
 result.pack()

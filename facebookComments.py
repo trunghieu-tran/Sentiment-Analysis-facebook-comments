@@ -24,7 +24,7 @@ posts = graph.get_objects(ids=post_ids)
 def getComments(id_post):
     sentencesComments = []
     timeComments = []
-    comments = graph.get_connections(id=id_post, connection_name='comments', limit = 1000    )
+    comments = graph.get_connections(id=id_post, connection_name='comments', limit = 1000)
     cnt = 0
     for comment in comments['data']:
         try:

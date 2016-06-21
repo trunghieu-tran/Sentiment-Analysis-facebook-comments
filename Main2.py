@@ -82,7 +82,7 @@ class analysis_text():
         # Run program
 
 
-# myanalysis = analysis_text()
+myanalysis = analysis_text()
 # myanalysis.setResult("neg", 0.5)
 # print(myanalysis.negativeLabel.cget("text"))
-# mainloop()
+mainloop()

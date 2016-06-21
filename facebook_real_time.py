@@ -6,19 +6,17 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 ##### Connections to Facebook by Graph API
 #  here is token which you get from Facebook Graph APIs, every time using program, you need update this token
-token = "CAACEdEose0cBAAh5l3LIc9cZACfD27tWl1z2mx5EDaYUPb24VcOEObFWu3wzG9QZC7ncg3Vmd06P1KK2H4l1p7vlnlMIlg4xZAVpFZCMHVgq22y8TzYGS30hiaFKg5VPcBg5LyHy3tupTyl09peyZCeja8dcCBw9gfmFA8hoIPZAhTk6yN5k0IXnOW3ZCwor9MLDmvQDoxABAZDZD"
-graph = facebook.GraphAPI(token)
+token = "EAACEdEose0cBAKz7x4gPKUseSB7tx3uJo3Ot79Ca1QHbkNmzIjgTaZAvjz2zHvHXZCRlr39CmrPQmvgwYVNzzkn7OMT9OhmbkImixZAIFkZAtaNNE9wGe9ZAoLZAZALSLWfkXfTZAYMVqVZBlFSnZCXwo2XmR5n7ZBmOhWTrZB8qXF3YZAQZDZD"
+graph = None
 # here is a array of post_ids
 # CNN : 5550296508
 # BBC : 1143803202301544
 # BBC new : 228735667216
 # my  : 4692106117913
 # CNNpolitics : 219367258105115
-post_ids = [
-            '228735667216_10153440548847217'
-           ]
-currPost = "Christie endorses Trump in shock move"
-posts = graph.get_objects(ids=post_ids)
+post_ids = []
+currPost = "NONE"
+posts = None
 ############
 xx = []
 yyPos = []
@@ -38,6 +36,8 @@ def getComments(id_post):
             timeComments.append(comment['created_time'])
         except:
             continue
+
+
     return sentencesComments, timeComments
 
 
@@ -55,12 +55,12 @@ def sentimentAnalysis(sentencesComments):
         for type in sorted(ss):
             if (type == "neg"):
                 sumNeg += ss[type]
-                # negY.append(sumNeg / cnt)
-                negY.append(ss[type])
+                negY.append(sumNeg / cnt) # this is for run-realtime
+                # negY.append(ss[type])  # this is for saving data to file CSV
             if (type == "pos"):
                 sumPos += ss[type]
-                # posY.append(sumPos / cnt)
-                posY.append(ss[type])
+                posY.append(sumPos / cnt) # this is for run-realtim
+                # posY.append(ss[type]) # this is for saveing data
     return posY, negY
 
 # Convert time comment to coordinate X in Graph
@@ -119,9 +119,28 @@ class drawgraph(Observer):
         # plt.pause(0.001) #Note this correction
 
 
+def sortCommentbyTime(timeX, posY, negY):
+    for i in range(len(timeX)):
+        for j in range(i + 1, len(timeX)):
+            if (timeX[i] > timeX[j]):
+                timeX[i], timeX[j] = timeX[j], timeX[i]
+                posY[i],  posY[j]  = posY[j],  posY[i]
+                negY[i],  negY[j]  = negY[j],  negY[i]
 
 def main_real_time_analysis():
-    global posts
+    global posts, token, graph, post_ids
+    # input token + id post
+    # token = input("Input access token:")
+    # idpost = input("Input post ID:")
+    # idpage = input("Input page ID:")
+    # idpost = '10201756757877969'
+    token = sys.argv[1]
+    idpost = sys.argv[2]
+    idpage = sys.argv[3]
+    post_ids.append(idpage + "_" + idpost)
+    graph = facebook.GraphAPI(token)
+    posts = graph.get_objects(ids=post_ids)
+
     # create observation
     dr = drawgraph()
     dr.observe('draw a new point',  dr.new_point)
@@ -135,14 +154,22 @@ def main_real_time_analysis():
     # Get created time of post
     created_time_post = dateparser.parse(posts[post_ids[0]]['created_time'])
     print('Created Time of Post = {0}'.format(created_time_post))
+
     # Get comment of post
     sentencesComments, timeComments = getComments(post_ids[0])
     # Convert time data
     timeX = timeToX(timeComments, created_time_post)
     # Convert sentiment analysis data
     posY, negY = sentimentAnalysis(sentencesComments)
-    for i in range(len(posY) - 1):
+    # sort data
+    sortCommentbyTime(timeX, posY, negY)
+
+    lastMoment = 0
+    for i in range(len(posY)):
         Event('draw a new point', timeX[i], posY[i], negY[i])
+        # print("{0} {1} {2}".format(timeX[i], posY[i], negY[i]))
+        lastMoment = timeX[i]
+
     plt.plot(xx, yyPos, color = 'g')
     plt.plot(xx, yyNeg, color = 'r')
     drawAnnotate()
@@ -152,15 +179,28 @@ def main_real_time_analysis():
     # Real-time
     while stop == False:
         sentencesCommentsCurr, timeCommentsCurr = getComments(post_ids[0])
-        if satisfyConditions(timeCommentsCurr, timeComments):
-            timeXCurr = timeToX(timeCommentsCurr, created_time_post)
-            posYCurr, negYCurr = sentimentAnalysis(sentencesCommentsCurr)
-            for i in range(len(sentencesComments), len(sentencesCommentsCurr)):
-                Event('draw a new point', timeXCurr[i], posYCurr[i], negYCurr[i])
-            print("updated {0} comments".format(len(sentencesCommentsCurr) - len(sentencesComments)))
-            sentencesComments = sentencesCommentsCurr
-            timeComments = timeCommentsCurr
-            timeX = timeXCurr
+        # if satisfyConditions(timeCommentsCurr, timeComments):
+        # if (len(timeCommentsCurr) > len(timeX)):
+
+        timeXCurr = timeToX(timeCommentsCurr, created_time_post)
+        posYCurr, negYCurr = sentimentAnalysis(sentencesCommentsCurr)
+
+        sortCommentbyTime(timeXCurr, posYCurr, negYCurr)
+
+        cntUpdate = 0
+        for i in range(len(sentencesCommentsCurr)):
+            if (timeXCurr[i] >  lastMoment):
+                cntUpdate += 1
+                Event("draw a new point", timeXCurr[i], posYCurr[i], negYCurr[i])
+                timeX.append(timeXCurr[i])
+                # print(timeXCurr[i])
+                lastMoment = timeXCurr[i]
+        if (cntUpdate > 0):
+            print("updated {0} comments".format(cntUpdate))
+
+        # sentencesComments = sentencesCommentsCurr
+        # timeComments = timeCommentsCurr
+        # timeX = timeXCurr
         plt.pause(0.1)
 
     print("Done")
