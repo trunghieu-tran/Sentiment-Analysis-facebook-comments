@@ -19,6 +19,9 @@ You have to learn about Facebook Graph API and how it works. So, then paste your
 
 Our Real-time stream processing automates getting data from Facebook server continually and then, we process data in small time period – near real time. For every processing, we use NLTK Library to analysis sentiment data. The results of data processing will be checked by predefined user’s conditions. If it satisfies conditions, the program will create an event to update Dashboard’s status. Beside, the program includes a procedure, which implements listening to any event. If a certain events exists, Dashboard will be updated.
 
+* 4th Program - A Method Automation Forecasting based on Cluster Profiles - For sentiment analysis of Facebook comment.ipynb 
+Perfomance method to prediction the trend of development of people's attitude on a post
+
 * Data Folder
 
 This part include data of comments. It's useful to implement batch data processing. The topic was chosen is “United States presidential election 2016”, which is popular recently. Almost data will be received from two famous new channels : BBC news and CNN on Facebook. We collected 25 posts about the topic above. Each of post, using Facebook Graph API, we get all comments of the first 30000 seconds, and save to .csv file. Amount of comments approximates 10000 comments.
