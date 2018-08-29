@@ -1,7 +1,6 @@
 # README #
 
 This project is my Bachelor thesis about Sentiment Analysis.
-* [Link Paper](https://link.springer.com/chapter/10.1007/978-3-319-42345-6_24)
 Program was written in Python version 3.x, uses Library NLTK.
 
 The content of the project is described below:
