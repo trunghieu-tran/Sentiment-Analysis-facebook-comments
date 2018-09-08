@@ -1,7 +1,10 @@
 # README #
 
-This project is my Bachelor thesis about Sentiment Analysis.
 Program was written in Python version 3.x, uses Library NLTK.
+
+### Publication ###
+Tran H., Shcherbakov M. (2016) Detection and Prediction of Users Attitude Based on Real-Time and Batch Sentiment Analysis of Facebook Comments. In: Nguyen H., Snasel V. (eds) Computational Social Networks. CSoNet 2016. Lecture Notes in Computer Science, vol 9795. Springer, Cham
+[Link Paper](https://link.springer.com/chapter/10.1007/978-3-319-42345-6_24)
 
 The content of the project is described below:
 
@@ -52,6 +55,4 @@ This part include data of comments. It's useful to implement batch data processi
 
 * Hieu Tran (trantrunghieu7492@gmail.com)
 
-### Publication ###
-Tran H., Shcherbakov M. (2016) Detection and Prediction of Users Attitude Based on Real-Time and Batch Sentiment Analysis of Facebook Comments. In: Nguyen H., Snasel V. (eds) Computational Social Networks. CSoNet 2016. Lecture Notes in Computer Science, vol 9795. Springer, Cham
-[Link Paper](https://link.springer.com/chapter/10.1007/978-3-319-42345-6_24)
+
