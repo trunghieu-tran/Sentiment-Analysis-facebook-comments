@@ -14,8 +14,14 @@ You have to learn about Facebook Graph API and how it works. So, then paste your
 
 * A Method Automation Forecasting based on Cluster Profiles - For sentiment analysis of Facebook comment.ipynb  - Perfomance method to prediction the trend of development of people's attitude on a post.
 
+### Architecture ###
+Real time processing architecuture is described as below.
+![alt text](https://raw.githubusercontent.com/saodem74/Sentiment-Analysis/master/pic/system_realtime.png)
 
-### Data Collection
+Sample of real time running
+![alt text](https://raw.githubusercontent.com/saodem74/Sentiment-Analysis/master/pic/real_time_sample.png)
+
+### Data Collection ###
 
 Implementation of batch data processing makes sense in the case of high volumes data. Firstly, we chose a topic, which is popular recently. For each post, using Facebook Graph API, all comments have been collected during the first 30000 s. Data is stored in flat table format (e.g. CSV file) which is easy to save in distributed file system. The header of CSV file contains the following columns: [Datetime] [Topic] [Post] [Comment] [Positive] [Negative].
 
