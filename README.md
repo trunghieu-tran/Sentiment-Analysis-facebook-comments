@@ -36,9 +36,9 @@ Prdection sentiment of comment sample:
 
 ### Data Collection ###
 
-Implementation of batch data processing makes sense in the case of high volumes data. Firstly, we chose a topic, which is popular recently. For each post, using Facebook Graph API, all comments have been collected during the first 30000 s. Data is stored in flat table format (e.g. CSV file) which is easy to save in distributed file system. The header of CSV file contains the following columns: [Datetime] [Topic] [Post] [Comment] [Positive] [Negative].
+Implementation of batch data processing makes sense in the case of high volumes data. Firstly, we chose a topic, which is popular recently. For each post, using Facebook Graph API, all comments have been collected during the first 30000 s. Data is stored in flat table format (e.g. CSV file) which is easy to save in distributed file system. The header of CSV file contains the following columns: [Datetime] [Topic] [Post] [Comment] [Positive] [Negative]. [Link data](https://raw.githubusercontent.com/saodem74/Sentiment-Analysis/master/Data/comment_data.csv)
 
-The topic was chosen is “United States presidential election 2016”, which is popular recently. Almost data will be received from two famous new channels : BBC news and CNN on Facebook. We collected 25 posts about the topic above. Each of post, using Facebook Graph API, we get all comments of the first 30000 seconds, and save to .csv file. Amount of comments approximates 10000 comments.
+The topic was chosen is “United States presidential election 2016”, which is popular recently. Almost data will be received from two famous new channels : BBC news and CNN on Facebook.
 
 ### Requirements ###
 
