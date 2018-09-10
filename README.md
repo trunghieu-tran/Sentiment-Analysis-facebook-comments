@@ -21,6 +21,14 @@ Implementation of batch data processing makes sense in the case of high volumes 
 
 The topic was chosen is “United States presidential election 2016”, which is popular recently. Almost data will be received from two famous new channels : BBC news and CNN on Facebook. We collected 25 posts about the topic above. Each of post, using Facebook Graph API, we get all comments of the first 30000 seconds, and save to .csv file. Amount of comments approximates 10000 comments.
 
+### Requirements ###
+
+The project requires installed packages: 
+* NLTK - Natural Language Toolkit is a leading platform for building Python programs to work with human language data
+* facebook-sdk - Python SDK for Facebook's Graph API 
+* matplotlib - Matplotlib is a Python 2D plotting library
+* scikit-learn - Machine Learning library in Python
+* pandas - an open source, BSD-licensed library providing high-performance, easy-to-use data structures and data analysis tools for the Python programming
 
 ### What is Sentiment Analysis? ###
 
