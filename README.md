@@ -1,4 +1,4 @@
-# README #
+# Sentiment Analysis of Facebook Comments #
 
 Program was written in Python version 3.x, uses Library NLTK.
 
