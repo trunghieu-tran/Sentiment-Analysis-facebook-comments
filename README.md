@@ -15,11 +15,24 @@ You have to learn about Facebook Graph API and how it works. So, then paste your
 * A Method Automation Forecasting based on Cluster Profiles - For sentiment analysis of Facebook comment.ipynb  - Perfomance method to prediction the trend of development of people's attitude on a post.
 
 ### Architecture ###
-Real time processing architecuture is described as below.
-![alt text](https://raw.githubusercontent.com/saodem74/Sentiment-Analysis/master/pic/system_realtime.png)
+Sentiment analysis sample:
 
-Sample of real time running
-![alt text](https://raw.githubusercontent.com/saodem74/Sentiment-Analysis/master/pic/real_time_sample.png)
+<img src="https://raw.githubusercontent.com/saodem74/Sentiment-Analysis/master/pic/sentiment_analysis.png" alt="alt text" width="400" height="300">
+
+
+Real time processing architecuture is described as below:
+
+<img src="https://raw.githubusercontent.com/saodem74/Sentiment-Analysis/master/pic/system_realtime.png" alt="alt text" width="400" height="300">
+
+
+Realtime processing sample:
+
+<img src="https://raw.githubusercontent.com/saodem74/Sentiment-Analysis/master/pic/real_time_sample.png" alt="alt text" width="500" height="300">
+
+
+Prdection sentiment of comment sample:
+
+<img src="https://raw.githubusercontent.com/saodem74/Sentiment-Analysis/master/pic/prediction_sample.png" alt="alt text" width="600" height="250">
 
 ### Data Collection ###
 
