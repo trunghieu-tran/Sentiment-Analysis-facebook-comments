@@ -67,7 +67,8 @@ The project requires installed packages:
 This project is publised on the International Conference as below:
 
 Tran H., Shcherbakov M. (2016) Detection and Prediction of Users Attitude Based on Real-Time and Batch Sentiment Analysis of Facebook Comments. In: Nguyen H., Snasel V. (eds) Computational Social Networks. CSoNet 2016. Lecture Notes in Computer Science, vol 9795. Springer, Cham
-[(Link Paper)](https://link.springer.com/chapter/10.1007/978-3-319-42345-6_24)
+[(Link Paper 1)](https://link.springer.com/chapter/10.1007/978-3-319-42345-6_24)
+[(Link Paper 2)](https://arxiv.org/abs/1906.03392)
 
 ### Contributors ###
 
